@@ -52,6 +52,7 @@ li {
 .content {
   padding-top: 120px;
   padding-bottom: 160px;
+  /* products.htmlで反映 */
   
 }
 .site-title a {
@@ -64,6 +65,7 @@ li {
   font-size: 0.875rem;
   font-weight: normal;
   margin-bottom: 30px;
+  /* about.htmlで反映 */
 }
 
 /*-------------------------------------------
@@ -116,6 +118,7 @@ li {
 .open #navi {
   left: 0;
   opacity: 1;
+  /* JavaScriptとの関係が深い */
 }
 .toggle_btn {
   width: 30px;
@@ -123,6 +126,7 @@ li {
   position: relative;
   transition: all 0.5s;
   cursor: pointer;
+  /* カーソルを合わせると指のマークに変わる */
   z-index: 20;
 }
 /*
@@ -133,7 +137,9 @@ li {
   position: absolute;
   width: 30px;
   height: 2px;
-  background-color: #333;
+  /* 1pxに変えると線が細くなる */
+  background-color: #30d5c8;
+  /* 何でバックグラウンドカラーなのか不明 */
   border-radius: 4px;
   transition: all 0.5s;
 }
@@ -173,19 +179,24 @@ li {
 #mask {
   display: none;
   transition: all 0.5s;
+  /* display noneを外すとtoggle_btnが真ん中移動するのは何故？*/
 }
 /*
+
 メニューを開いている時は、全体を黒背景にする
 */
 .open #mask {
   display: block;
+  /*display blockの役割が良く分からない...  */
   position: fixed;
   top: 0;
   left: 0;
+  /* 上記の2つを解除すると黒くなる部分が限られるが、限られる部分の根拠が知りたい */
   width: 100%;
   height: 100%;
   background: #000;
   opacity: .8;
+  /* backgroud-colorの真っ黒を薄めている */
   z-index: 10;
   cursor: pointer;
 }
@@ -209,16 +220,20 @@ vertical-align: top;
 .product-list img {
   margin-bottom: 10px;
   vertical-align: top;
+  /* 行の上端に要素を配置する */
 }
 .product-list p {
   font-size: 0.75rem;
 }
 .link-text {
   display: block;
+  /* ブロック要素　行全体をまとまりとして扱う要素。要素の前後に改行される */
+  /* インライン要素　文章の一つして扱う要素。要素の前後で改行されない */
   margin-top: 40px;
   text-align: center;
 }
 .pagination {
+  /* puroductsページ下の1と2ページを選ぶやつ */
   display: flex;
   justify-content: center;
   margin-top: 40px;
@@ -238,6 +253,7 @@ ITEM
 }
 #item .item-text {
   width: 42%;
+  /* 50％にすると写真とくっついてしまう */
 }
 /*
 text-align: justify;
@@ -246,10 +262,12 @@ text-align: justify;
 #item .item-text p {
   margin-bottom: 30px;
   text-align: justify;
+  /* テキストを両端に揃える */
 }
 #item .item-text dl {
   display: flex;
   flex-wrap: wrap;
+  /* 要素が親アンテナの幅に収まらない場合、次の行に折り返して表示する */
 }
 #item .item-text dt {
   width: 30%;
@@ -278,9 +296,14 @@ COMPANY
 #company {
   max-width: 600px;
 }
+/* dl➤description list 説明リスト*/
+/* dt➤description term 説明する言葉 */
+/* dd➤definition / description 定義分or説明文 */
+
 #company dl {
   display: flex;
   flex-wrap: wrap;
+  /* アイテムがコンテナの境界を超えた場合に折り返して表示させる */
   margin-bottom: 20px;
 }
 #company dt {
@@ -290,6 +313,7 @@ COMPANY
 }
 #company dt:last-of-type {
   border-bottom: none;
+   /* cssの疑似クラスで、兄弟要素のグループの中でその種類の最後の要素を表す */
 }
 #company dd {
   width: 70%;
@@ -297,6 +321,7 @@ COMPANY
   padding: 20px 10px;
 }
 #company dd:last-of-type {
+  /* cssの疑似クラスで、兄弟要素のグループの中でその種類の最後の要素を表す */
   border-bottom: none;
 }
 #company .map {
@@ -308,6 +333,7 @@ COMPANY
   width: 100%;
   height: 300px;
   border: 0;
+  /* border 0って何の為にあるのか */
 }
 
 /*-------------------------------------------
@@ -320,10 +346,13 @@ COMPANY
 #footer {
   display: flex;
   justify-content: space-between;
+  /* 各アイテムは配置コンテナの中で主軸方向に均等に配置される。
+  最初のアイテムは主軸の先頭側に寄せられ、最後のアイテムは主軸の末尾側に寄せられる */
   position: absolute;
+  /* relativeがbuttonだが、ここでabusoluteをする理由が不明 */
   bottom: 20px;
-  left: 0;
-  right: 0;
+  left: 0px;;
+  right: 0px;
 }
 #footer .menu {
   display: flex;
@@ -354,6 +383,7 @@ SP
   -------------------------------------------*/
   #item {
     flex-direction: column;
+    /*子要素を上から下に並べる  */
   }
   #item .item-text {
     width: 100%;
