@@ -1,0 +1,421 @@
+@charset "UTF-8";
+
+html {
+  font-size: 100%;
+}
+/*
+フッターを画面下に配置するために、
+「position: relative;」を設定
+「min-height」で最小の高さを画面の高さにあわせる
+*/
+body {
+  color: #333;
+  font-size: 0.875rem;
+    /* htmlの文字を基準にした文字サイズ指定の単位 */
+  min-height: 100vh;
+  /* vh（viweport height）ビューポートの高さ */
+  /* Viewport➤ユーザーがウェブサイトを見ている画面の可視領域のこと */
+  /* 可視領域を操作する理由は不明*/
+  position: relative;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  /* liタグでリスト化されているので、「下線」や「・」が自動的に付かないようしている */
+  transition: all 0.5s;
+  /* 要素の2つの状態間の変化（何もない状態とa:hoverとの関係）を定義する */
+}
+a:hover {
+  opacity: 0.7;
+}
+img {
+  max-width: 100%;
+}
+li {
+  list-style: none;
+}
+/*
+コンテンツ幅を設定するための共通クラス
+*/
+
+.wrapper {
+  width: 100%;
+  /* ここを100％にしておかないと、要素全体が小さくなる */
+  max-width: 1360px;
+  /* 1360pxにして、widthが何％か */
+  margin: 0 auto;
+  /* 要素の外枠の幅を良い感じに明ける */
+  padding: 0 40px;
+  /* 要素の内枠の横幅を40pxはクライントからの指定 */
+}
+.content {
+  padding-top: 120px;
+  padding-bottom: 160px;
+  /* products.htmlで反映 */
+  
+}
+.site-title a {
+  width: 180px;
+  line-height: 1px;
+  /* コメントアウトしても変わりない */
+  display: block;
+}
+.page-title {
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-bottom: 30px;
+  /* about.htmlで反映 */
+}
+
+/*-------------------------------------------
+ヘッダー
+-------------------------------------------*/
+/*
+「position: fixed;」でヘッダーを固定し、「z-index: 10;」で前面に表示
+※他のコンテンツでpositionをrelative、absolute、fixedのいずれかに
+設定している場合は、z-indexの数値が大きい方が前面に表示される
+*/
+#header {
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 10
+}
+/*
+ハンバーガーメニュー
+メニューが閉じている時は、「left: -300px;」で画面左に隠し、
+「opacity: 0;」で非表示にしている
+*/
+#navi {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  color: #fff;
+  padding: 36px 50px;
+  transition: all 0.5s;
+  z-index: 20;
+  opacity: 0;
+}
+#navi a {
+  color: #fff;
+}
+#navi li {
+  margin-bottom: 14px;
+}
+/*
+ハンバーガーメニュー
+メニューが開いている時は、「left: 0;」「opacity: 1;」で
+画面左に表示する
+*/
+.open #navi {
+  left: 0;
+  opacity: 1;
+  /* JavaScriptとの関係が深い */
+}
+.toggle_btn {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  transition: all 0.5s;
+  cursor: pointer;
+  /* カーソルを合わせると指のマークに変わる */
+  z-index: 20;
+}
+/*
+ハンバーガーメニューの線の設定（メニューが閉じている時）
+*/
+.toggle_btn span {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  /* 1pxに変えると線が細くなる */
+  background-color: #30d5c8;
+  /* 何でバックグラウンドカラーなのか不明 */
+  border-radius: 4px;
+  transition: all 0.5s;
+}
+/*
+1本目の線の位置を設定
+*/
+.toggle_btn span:nth-child(1) {
+  top: 10px;
+}
+/*
+2本目の線の位置を設定
+*/
+.toggle_btn span:nth-child(2) {
+  bottom: 10px;
+}
+/*
+ハンバーガーメニューの線の設定（メニューが開いている時）
+線の色を白に変更
+*/
+.open .toggle_btn span {
+  background-color: #fff;
+}
+/*
+1本目の線を-45度回転
+*/
+.open .toggle_btn span:nth-child(1) {
+  -webkit-transform: translateY(4px) rotate(-45deg);
+  transform: translateY(4px) rotate(-45deg);
+}
+/*
+2本目の線を45度回転
+*/
+.open .toggle_btn span:nth-child(2) {
+  -webkit-transform: translateY(-4px) rotate(45deg);
+  transform: translateY(-4px) rotate(45deg);
+}
+#mask {
+  display: none;
+  transition: all 0.5s;
+  /* display noneを外すとtoggle_btnが真ん中移動するのは何故？*/
+}
+/*
+
+メニューを開いている時は、全体を黒背景にする
+*/
+.open #mask {
+  display: block;
+  /*display blockの役割が良く分からない...  */
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* 上記の2つを解除すると黒くなる部分が限られるが、限られる部分の根拠が知りたい */
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .8;
+  /* backgroud-colorの真っ黒を薄めている */
+  z-index: 10;
+  cursor: pointer;
+}
+
+/*-------------------------------------------
+TOP、PRODUCTS
+-------------------------------------------*/
+#top {
+  padding-top: 80px;
+  padding-bottom: 160px;
+}
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+}
+/*
+vertical-align: top;
+画像の下にできる隙間を消す
+*/
+.product-list img {
+  margin-bottom: 10px;
+  vertical-align: top;
+  /* 行の上端に要素を配置する */
+}
+.product-list p {
+  font-size: 0.75rem;
+}
+.link-text {
+  display: block;
+  /* ブロック要素　行全体をまとまりとして扱う要素。要素の前後に改行される */
+  /* インライン要素　文章の一つして扱う要素。要素の前後で改行されない */
+  margin-top: 40px;
+  text-align: center;
+}
+.pagination {
+  /* puroductsページ下の1と2ページを選ぶやつ */
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.pagination li {
+  padding: 0 20px;
+}
+
+/*-------------------------------------------
+ITEM
+-------------------------------------------*/
+#item {
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+#item .item-text {
+  width: 42%;
+  /* 50％にすると写真とくっついてしまう */
+}
+/*
+text-align: justify;
+テキストの両端を揃える
+*/
+#item .item-text p {
+  margin-bottom: 30px;
+  text-align: justify;
+  /* テキストを両端に揃える */
+}
+#item .item-text dl {
+  display: flex;
+  flex-wrap: wrap;
+  /* 要素が親アンテナの幅に収まらない場合、次の行に折り返して表示する */
+}
+#item .item-text dt {
+  width: 30%;
+}
+#item .item-text dd {
+  width: 70%;
+}
+#item .item-img {
+  width: 50%;
+}
+
+/*-------------------------------------------
+ABOUT
+-------------------------------------------*/
+#about {
+  max-width: 600px;
+}
+#about p {
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+/*-------------------------------------------
+COMPANY
+-------------------------------------------*/
+#company {
+  max-width: 600px;
+}
+/* dl➤description list 説明リスト*/
+/* dt➤description term 説明する言葉 */
+/* dd➤definition / description 定義分or説明文 */
+
+#company dl {
+  display: flex;
+  flex-wrap: wrap;
+  /* アイテムがコンテナの境界を超えた場合に折り返して表示させる */
+  margin-bottom: 20px;
+}
+#company dt {
+  width: 30%;
+  border-bottom: solid 1px #dcdbdb;
+  padding: 20px 10px;
+}
+#company dt:last-of-type {
+  border-bottom: none;
+   /* cssの疑似クラスで、兄弟要素のグループの中でその種類の最後の要素を表す */
+}
+#company dd {
+  width: 70%;
+  border-bottom: solid 1px #dcdbdb;
+  padding: 20px 10px;
+}
+#company dd:last-of-type {
+  /* cssの疑似クラスで、兄弟要素のグループの中でその種類の最後の要素を表す */
+  border-bottom: none;
+}
+#company .map {
+  /* グーグルマップをグレースケールにする */
+  filter: grayscale(1);
+}
+/* グーグルマップのサイズを設定 */
+#company .map iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  /* border 0って何の為にあるのか */
+}
+
+/*-------------------------------------------
+フッター
+-------------------------------------------*/
+/*
+「position: absolute;」を設定して、フッター位置を画面下に設定
+「left: 0;」「right: 0;」で中央に配置
+*/
+#footer {
+  display: flex;
+  justify-content: space-between;
+  /* 各アイテムは配置コンテナの中で主軸方向に均等に配置される。
+  最初のアイテムは主軸の先頭側に寄せられ、最後のアイテムは主軸の末尾側に寄せられる */
+  position: absolute;
+  /* relativeがbuttonだが、ここでabusoluteをする理由が不明 */
+  bottom: 20px;
+  left: 0px;;
+  right: 0px;
+}
+#footer .menu {
+  display: flex;
+}
+#footer .menu li {
+  font-size: 0.75rem;
+  margin-right: 30px;
+}
+#footer .copyright {
+  font-size: 0.625rem;
+}
+
+/*-------------------------------------------
+SP
+-------------------------------------------*/
+@media screen and (max-width: 900px) {
+
+  /*-------------------------------------------
+  TOP、PRODUCTS
+  -------------------------------------------*/
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+
+  /*-------------------------------------------
+  ITEM
+  -------------------------------------------*/
+  #item {
+    flex-direction: column;
+    /*子要素を上から下に並べる  */
+  }
+  #item .item-text {
+    width: 100%;
+  }
+  #item .item-img {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /*-------------------------------------------
+  COMPANY
+  -------------------------------------------*/
+  #company dl {
+    flex-direction: column;
+  }
+  #company dt {
+    width: 100%;
+    border-bottom: none;
+    padding-bottom: 5px;
+  }
+  #company dd {
+    width: 100%;
+    padding-top: 5px;
+  }
+
+  /*-------------------------------------------
+  フッター
+  -------------------------------------------*/
+  #footer {
+    flex-direction: column;
+  }
+  #footer .menu {
+    margin-bottom: 5px;
+  }
+}
